@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlpass
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel-network
+  web:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: bitbucketlearn-php
+    container_name: bitbucketlearn-php
+    depends_on:
+      - db
+    environment:
+      WAIT_HOSTS: db:3306
+    ports:
+      - "8100:80"
+    stdin_open: true
+    tty: true
+    networks:
+      - laravel-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    external_links:
+      - db:mysql
+    ports:
+      - "9191:80"
+    environment:
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+      MYSQL_ROOT_PASSWORD: mysqlpass
+      PMA_HOST: db
+    networks:
+      - laravel-network
+
+#Docker Networks
+networks:
+  laravel-network:
+    driver: bridge
