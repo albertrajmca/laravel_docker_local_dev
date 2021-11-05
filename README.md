@@ -27,7 +27,7 @@ Run Laravel, MySQL, PhpMyAdmin using docker
 <img width="1400" alt="Screenshot 2021-11-05 at 10 37 49 PM" src="https://user-images.githubusercontent.com/17470465/140550655-412e3424-db6d-4476-b0ce-05ca88d7150f.png">
 11. Open http://localhost:9191 to check the database with username/password => devuser/devpass
 
-13. User table should be filled with the details what you have given
+12. User table should be filled with the details what you have given
 
 
 Great, success you have a Laravel application as a docker image
